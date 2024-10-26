@@ -11,7 +11,7 @@ const rate = async function getRate(res, currencies) {
     });
     try {
         const page = await browser.newPage();
-        await page.goto('https://bonbast.com/');
+        await page.goto('https://bonbast.com/', {timeout: 60000});
         
         let rates = {};
         for (var i=0; i < currencies.length; i++) {
