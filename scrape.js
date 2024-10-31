@@ -27,10 +27,9 @@ const rate = async function getRate(res) {
             });
             return data;
         });
-        console.log(rates);
         res.status(200).json(rates);
     } catch (err) {
-        res.send(`Somethine went wrong => ${err}`);
+        res.status(500).send(`Somethine went wrong => \n ${err}`);
     } finally {
         browser.close();
     }
