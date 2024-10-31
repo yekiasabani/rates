@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const rate = async function getRate(res, currencies) {
+const rate = async function getRate(res) {
 	const browser = await puppeteer.launch({
         headless: true,
         args: [
@@ -13,13 +13,20 @@ const rate = async function getRate(res, currencies) {
         const page = await browser.newPage();
         await page.goto('https://bonbast.com/', {timeout: 60000});
         
-        let rates = {};
-        for (var i=0; i < currencies.length; i++) {
-            const sellPrice = await page.$eval(`#${currencies[i]}1`, el => el.innerText)
-            const buyPrice = await page.$eval(`#${currencies[i]}2`, el => el.innerText)
-    
-            rates[currencies[i]] = {'sell price' : sellPrice, 'buy price' : buyPrice}
-        }
+        const rates = await page.evaluate(() => {
+            let data = [];
+            const rows = document.querySelectorAll('.table-condensed tbody tr:not(:first-child)');
+            rows.forEach((row) => {
+                const price = {
+                    code: row.querySelector('td:nth-child(1)').textContent,
+                    name: row.querySelector('td:nth-child(2)').textContent,
+                    sell: row.querySelector('td:nth-child(3)').textContent,
+                    buy: row.querySelector('td:nth-child(4)').textContent
+                }
+                data.push(price);
+            });
+            return data;
+        });
         console.log(rates);
         res.status(200).json(rates);
     } catch (err) {
