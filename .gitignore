@@ -2,3 +2,4 @@
 .env
 Dockerfile.js
 test.php
+prices.json
