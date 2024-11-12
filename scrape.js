@@ -9,6 +9,7 @@ const rate = async function getRate(res) {
             "--no-zygote"
         ]
     });
+
     try {
 
         let rates = {};
@@ -33,7 +34,7 @@ const rate = async function getRate(res) {
         });
         rates.currency = currency;
         const page2 = await browser.newPage();
-        await page2.goto('https://goldprice.org', {timeout: 60000});
+        await page2.goto('https://goldprice.org', {timeout: 120000});
         const goldprice = await page2.$eval('.gpoticker-price', el => el.textContent);
         rates.goldprice = goldprice;
 
