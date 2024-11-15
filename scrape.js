@@ -9,11 +9,8 @@ const rate = async function getRate(res) {
             "--no-zygote"
         ]
     });
-
     try {
-
         let rates = {};
-        
         const page = await browser.newPage();
         await page.goto('https://bonbast.com/', {timeout: 60000});
         
@@ -33,30 +30,9 @@ const rate = async function getRate(res) {
             return data;
         });
         rates.currency = currency;
-        const page2 = await browser.newPage();
-        await page2.goto('https://goldprice.org', {timeout: 120000});
-        const goldprice = await page2.$eval('.gpoticker-price', el => el.textContent);
+        const goldprice = await page.$eval('#ounce_top', el => el.textContent);
+
         rates.goldprice = goldprice;
-
-        // const page3 = await browser.newPage();
-        // await page3.goto('https://coinmarketcap.com', {timeout: 60000});
-
-        // let crypto = await page3.evaluate(() => {
-        //     let data = {};
-        //     const rows = document.querySelectorAll('table.etbcea tbody tr');
-        //     rows.forEach((row) => {
-        //         const code = row.querySelector('td:nth-child(3)').textContent;
-        //         const price = {
-        //             // code : row.getElementsByClassName('coin-item-symbol').textContent,
-        //             // name : row.getElementsByClassName('coin-item-name').textContent,
-        //             price : row.querySelector('td:nth-child(4)').innerText,
-        //         }
-        //         data[code] = price;
-        //     });
-        //     return data;
-        // });
-
-        // rates.crypto = crypto;
         res.status(200).json(rates);
     } catch (err) {
         res.status(500).send(`Somethine went wrong => \n ${err}`);
