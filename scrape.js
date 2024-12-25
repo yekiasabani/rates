@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const rate = async function getRate(res) {
 	const browser = await puppeteer.launch({
         headless: true,
+        timeout: 0,
         args: [
             "--disable-setuid-sandbox",
             "--no-sandbox",
