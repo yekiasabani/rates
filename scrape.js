@@ -12,7 +12,7 @@ const rate = async function getRate(res) {
     try {
         let rates = {};
         const page = await browser.newPage();
-        await page.goto('https://bonbast.com/', {timeout: 10000});
+        await page.goto('https://bonbast.com/', {timeout: 7000});
         // await page.waitForNetworkIdle();
         let currency = await page.evaluate(() => {
             let data = {};
@@ -29,7 +29,9 @@ const rate = async function getRate(res) {
             });
             return data;
         });
+
         rates.currency = currency;
+
         const goldprice = await page.$eval('#ounce_top', el => el.textContent);
 
         rates.goldprice = goldprice;
