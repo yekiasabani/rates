@@ -13,7 +13,7 @@ const rate = async function getRate(res) {
         let rates = {};
         const page = await browser.newPage();
         await page.goto('https://bonbast.com/', {timeout: 60000});
-        // await page.waitForNetworkIdle();
+        
         let currency = await page.evaluate(() => {
             let data = {};
             const rows = document.querySelectorAll('.table-condensed tbody tr:not(:first-child)');
@@ -29,10 +29,8 @@ const rate = async function getRate(res) {
             });
             return data;
         });
-
         rates.currency = currency;
-
-        const goldprice = await page.$eval('#ounce', el => el.textContent);
+        const goldprice = await page.$eval('#ounce_top', el => el.textContent);
 
         rates.goldprice = goldprice;
         res.status(200).json(rates);
