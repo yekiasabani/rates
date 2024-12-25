@@ -30,9 +30,9 @@ const rate = async function getRate(res) {
             return data;
         });
         rates.currency = currency;
-        const goldprice = await page.$eval('#ounce_top', el => el.textContent);
+        // const goldprice = await page.$eval('#ounce_top', el => el.textContent);
 
-        rates.goldprice = goldprice;
+        // rates.goldprice = goldprice;
         res.status(200).json(rates);
     } catch (err) {
         res.status(500).send(`Somethine went wrong => \n ${err}`);
