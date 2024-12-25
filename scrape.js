@@ -32,7 +32,7 @@ const rate = async function getRate(res) {
 
         rates.currency = currency;
 
-        const goldprice = await page.$eval('#ounce_top', el => el.textContent);
+        const goldprice = await page.$eval('#ounce', el => el.textContent);
 
         rates.goldprice = goldprice;
         res.status(200).json(rates);
