@@ -12,7 +12,7 @@ const rate = async function getRate(res) {
     try {
         let rates = {};
         const page = await browser.newPage();
-        await page.goto('https://bonbast.com/');
+        await page.goto('https://bonbast.com/', {timeout: 10000});
         // await page.waitForNetworkIdle();
         let currency = await page.evaluate(() => {
             let data = {};
