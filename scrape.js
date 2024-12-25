@@ -2,7 +2,6 @@ const puppeteer = require('puppeteer');
 const rate = async function getRate(res) {
 	const browser = await puppeteer.launch({
         headless: true,
-        timeout: 0,
         args: [
             "--disable-setuid-sandbox",
             "--no-sandbox",
@@ -13,8 +12,8 @@ const rate = async function getRate(res) {
     try {
         let rates = {};
         const page = await browser.newPage();
-        await page.goto('https://bonbast.com/', {timeout: 60000});
-        await page.waitForNetworkIdle();
+        await page.goto('https://bonbast.com/');
+        // await page.waitForNetworkIdle();
         let currency = await page.evaluate(() => {
             let data = {};
             const rows = document.querySelectorAll('.table-condensed tbody tr:not(:first-child)');
