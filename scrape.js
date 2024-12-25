@@ -13,7 +13,7 @@ const rate = async function getRate(res) {
         let rates = {};
         const page = await browser.newPage();
         await page.goto('https://bonbast.com/', {timeout: 60000});
-        
+        await page.waitForNetworkIdle();
         let currency = await page.evaluate(() => {
             let data = {};
             const rows = document.querySelectorAll('.table-condensed tbody tr:not(:first-child)');
