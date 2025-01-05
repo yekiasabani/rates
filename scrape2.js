@@ -12,7 +12,7 @@ const rate2 = async function getRate(res) {
     try {
         let rates = {};
         const page = await browser.newPage();
-        await page.goto('https://alanchand.com/currencies-price', {timeout: '90000', waitUntil: 'load'});
+        await page.goto('https://alanchand.com/currencies-price', {timeout: '90000'});
         let currency = await page.evaluate(() => {
             let data = {};
             const rows = document.querySelectorAll('a.arz_sync');
@@ -31,8 +31,8 @@ const rate2 = async function getRate(res) {
         });
         rates.currency = currency;
 
-        await page.goto('https://goldprice.org/');
-        const goldprice = await page.$eval('.gpoticker-price', el => el.textContent);
+        await page.goto('https://alanchand.com/gold-price/usd_xau', {waitUntil: 'load'});
+        const goldprice = await page.$eval('.main-item div:nth-child(2)', el => el.textContent.replace('دلار', '').trim());
         // const goldprice = await page.$eval('#ounce_top', el => el.textContent);
 
         rates.goldprice = goldprice;
