@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const rate2 = async function getRate(res) {
+const rate = async function getRate(res) {
 	const browser = await puppeteer.launch({
         headless: true,
         args: [
@@ -44,4 +44,4 @@ const rate2 = async function getRate(res) {
         browser.close();
     }
 }
- module.exports = rate2;
+ module.exports = rate;
