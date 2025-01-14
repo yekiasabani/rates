@@ -12,7 +12,7 @@ const rate = async function getRate(res) {
     try {
         let rates = {};
         const page = await browser.newPage();
-        await page.goto('https://alanchand.com/currencies-price/', {timeout: '90000', waitUntil: 'domcontentloaded'});
+        await page.goto('https://alanchand.com/currencies-price', {timeout: '90000'});
         await page.waitForSelector('a.arz_sync');
         let currency = await page.evaluate(() => {
             let data = {};
