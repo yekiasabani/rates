@@ -14,6 +14,10 @@ app.get("/second", validateAccess, (req, res) => {
     rate2(res);
 });
 
+app.get("/third", validateAccess, (req, res) => {
+    rate2(res);
+});
+
 app.get('*', (req, res) => {
     res.redirect('/');
 })
