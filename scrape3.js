@@ -58,16 +58,18 @@ const rate = async function getRate(res) {
                 "منات ترکمنستان"        : "tmt"
             };
             rows.forEach((row) => {
-                let sell = row.querySelector('td:nth-child(2)').textContent.replaceAll(',', '').slice(0, -1);
-                sell = parseInt(sell);
-                let buyPrecentage = ((sell > 10000 ) ? Math.round(sell * 0.01) : Math.round(sell * 0.02));
                 const name = row.querySelector('th:nth-child(1)').textContent.trim();
+
+                let sell = row.querySelector('td:nth-child(2)').textContent.replaceAll(',', '').slice(0, -1);
+                sell = (name == "دینار عراق" ? parseInt(sell) * 100 : parseInt(sell));
+                let buyPrecentage = ((sell > 10000 ) ? Math.round(sell * 0.01) : Math.round(sell * 0.02));
+                
                 const code = nameToCode[name];
                  price = {
                     code: code,
                     name: row.querySelector('th:nth-child(1)').textContent.trim(),
-                    sell: row.querySelector('td:nth-child(2)').textContent.trim().replaceAll(',', '').slice(0, -1),
-                    buy: ((sell > 10000 ) ? ((sell - buyPrecentage) - (sell - buyPrecentage)%10) : (sell - buyPrecentage))
+                    sell: sell,
+                    buy: ((sell > 1000 ) ? ((sell - buyPrecentage) - (sell - buyPrecentage)%10) : (sell - buyPrecentage))
                 }
                 data[code] = price;
             });
