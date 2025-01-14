@@ -76,9 +76,7 @@ const rate = async function getRate(res) {
         });
         rates.currency = currency;
 
-        await page.goto('https://goldprice.org', {timeout: '90000'});
-        await page.waitForSelector('.gpoticker-price');
-        const goldprice = await page.$eval('.gpoticker-price', el => el.textContent);
+        const goldprice = await page.$eval('#l-ons span span:nth-child(1)', el => el.textContent);
         // const goldprice = await page.$eval('#ounce_top', el => el.textContent);
 
         rates.goldprice = goldprice;
