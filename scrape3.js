@@ -60,9 +60,10 @@ const rate = async function getRate(res) {
             rows.forEach((row) => {
                 const name = row.querySelector('th:nth-child(1)').textContent.trim();
 
-                let sell = row.querySelector('td:nth-child(2)').textContent.replaceAll(',', '').slice(0, -1);
-                sell = (name == "دینار عراق" ? parseInt(sell) * 100 : parseInt(sell));
-                let buyPrecentage = ((sell > 10000 ) ? Math.round(sell * 0.01) : Math.round(sell * 0.02));
+                let sellPrice = parseInt(row.querySelector('td:nth-child(2)').textContent.replaceAll(',', '').slice(0, -1));
+                let sell = ((sellPrice > 10000 ) ? ((sellPrice) + (10 - (sellPrice)%10)) : sellPrice);
+                sell = (name == "دینار عراق" ? sell * 100 : sell);
+                let buyPrecentage = ((sell > 1000 ) ? Math.round(sell * 0.01) : Math.round(sell * 0.02));
                 
                 const code = nameToCode[name];
                  price = {
