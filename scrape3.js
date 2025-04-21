@@ -69,7 +69,7 @@ const rate = async function getRate(res) {
                  price = {
                     code: code,
                     name: row.querySelector('th:nth-child(1)').textContent.trim(),
-                    sell: ((buy > 1000 ) ? ((buy + sellPrecentage) - (buy - sellPrecentage)%10) : (buy + sellPrecentage)),
+                    sell: ((buy > 1000 ) ? ((buy + sellPrecentage) + (buy - sellPrecentage)%10) : (buy + sellPrecentage)),
                     buy: buy
                 }
                 data[code] = price;
