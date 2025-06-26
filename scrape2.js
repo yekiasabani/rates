@@ -38,7 +38,7 @@ const rate = async function getRate(res) {
         // const goldprice = await page.$eval('.main-item div:nth-child(2)', el => el.textContent.replace('دلار', '').trim());
         // const goldprice = await page.$eval('#ounce_top', el => el.textContent);
         // await page.goto('https://goldprice.org', {waitUntil: 'load'});
-        const goldprice = await page2.$eval('.gpoticker-price', el => el.textContent());
+        const goldprice = await page2.$eval('.gpoticker-price', el => el.textContent);
 
         rates.goldprice = goldprice;
         res.status(200).json(rates);
