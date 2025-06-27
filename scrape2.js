@@ -14,7 +14,7 @@ const rate = async function getRate(res) {
         const page = await browser.newPage();
         const page2 = await browser.newPage();
         await page.goto('https://alanchand.com/currencies-price', {timeout: '90000'});
-        await page2.goto('https://goldprice.org', {waitUntil: 'load'});
+        await page2.goto('https://goldprice.org', {timeout: '90000'});
         await page.waitForSelector('a.arz_sync');
         let currency = await page.evaluate(() => {
             let data = {};
